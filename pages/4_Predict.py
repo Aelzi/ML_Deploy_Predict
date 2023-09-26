@@ -104,7 +104,7 @@ test_acg = accuracy_score(y_test, y_test_gr)
 print(f'train_accuracy: {train_acg}')
 print(f"accuracy: {test_acg}")
 
-# import pickle
+
 
 pipe =pickle.dump(XGBC, open('model.pkl', 'wb'))
 df = pickle.dump(processed_data, open('data.pkl', 'wb'))
