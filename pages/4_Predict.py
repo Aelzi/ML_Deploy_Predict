@@ -69,7 +69,6 @@ search = GridSearchCV(pipe, param_grid, cv=5)
 search.fit(X, y)
 
 search.best_score_
-
 search.best_params_
 
 # import numpy as np
@@ -107,16 +106,16 @@ print(f"accuracy: {test_acg}")
 
 # import pickle
 
-pickle.dump(XGBC, open('model.pkl', 'wb'))
-pickle.dump(processed_data, open('data.pkl', 'wb'))
+pipe =pickle.dump(XGBC, open('model.pkl', 'wb'))
+df = pickle.dump(processed_data, open('data.pkl', 'wb'))
 
 
 # print("BERHASIL")
 
 # Load the trained model and user input data
-pipe = joblib.load(open('../model.pkl', 'rb'))
-df = joblib.load(open('../data.pkl', 'rb'))
-processed_data.to_csv('data.csv', index=False)
+# pipe = joblib.load(open('../model.pkl', 'rb'))
+# df = joblib.load(open('../data.pkl', 'rb'))
+# processed_data.to_csv('data.csv', index=False)
 
 
 st.write("""
