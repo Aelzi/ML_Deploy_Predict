@@ -106,8 +106,11 @@ print(f"accuracy: {test_acg}")
 
 # import pickle
 
-pipe =pickle.dump(XGBC, open('model.pkl', 'wb'))
-df = pickle.dump(processed_data, open('data.pkl', 'wb'))
+# pipe =pickle.dump(XGBC, open('model.pkl', 'wb'))
+# df = pickle.dump(processed_data, open('data.pkl', 'wb'))
+
+pipe =pickle.dump(XGBC)
+df = pickle.dump(processed_data)
 
 
 # print("BERHASIL")
