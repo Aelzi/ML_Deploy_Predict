@@ -150,7 +150,7 @@ def predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matte
     prediction = XGBC.predict(user_input)
 
     # Map the prediction to the corresponding category
-    category_mapping = {1: 'Moderate', 2: 'Good', 3: 'Unhealthy'}
+    category_mapping = {1: 'Sedang', 2: 'Sangat Baik', 3: 'Tidak Sehat'}
     category = category_mapping.get(prediction[0], 'Unknown')
 
     return category
@@ -166,4 +166,13 @@ particulate_matter = Input['PM10'].values[0]
 category = predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matter)
 
 # Display the predicted category
-st.write(f"Prediction: {category} Air Quality")
+st.write(f"Prediksi: Kualiatas udara {category} ")
+
+
+if category == 'Sedang':
+    st.write(""" #Kualitas udara sedang """)
+    
+elif category== 'Sangat Baik':
+    st.write(""" #Kualitas udara sangat baik """)
+else:
+    st.write(""" #Kualitas udara tidak sehat """)
