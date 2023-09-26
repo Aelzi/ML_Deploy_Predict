@@ -9,7 +9,7 @@ df=pd.read_csv("polusi_udara_jogja2020.csv")
 
 print(df.head())
 
-
+# print("BERHASIL")
 
 # # Load the trained model and user input data
 # pipe = joblib.load(open('../model.pkl', 'rb'))
