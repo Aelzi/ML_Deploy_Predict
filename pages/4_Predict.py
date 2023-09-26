@@ -106,15 +106,15 @@ print(f"accuracy: {test_acg}")
 
 
 
-pipe =pickle.dump(XGBC, open('model.pkl', 'wb'))
-df = pickle.dump(processed_data, open('data.pkl', 'wb'))
+# pipe =pickle.dump(XGBC, open('model.pkl', 'wb'))
+# df = pickle.dump(processed_data, open('data.pkl', 'wb'))
 
-# print("BERHASIL")
+# # print("BERHASIL")
 
-# Load the trained model and user input data
-pipe1 = joblib.load(open('../model.pkl', 'rb'))
-df1 = joblib.load(open('../data.pkl', 'rb'))
-# processed_data.to_csv('data.csv', index=False)
+# # Load the trained model and user input data
+# pipe1 = joblib.load(open('../model.pkl', 'rb'))
+# df1 = joblib.load(open('../data.pkl', 'rb'))
+# # processed_data.to_csv('data.csv', index=False)
 
 
 st.write("""
@@ -147,7 +147,7 @@ def predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matte
                             'PM10': [particulate_matter]})
 
     # Use the loaded model to make predictions
-    prediction = pipe1.predict(user_input)
+    prediction = XGBC.predict(user_input)
 
     # Map the prediction to the corresponding category
     category_mapping = {1: 'Moderate', 2: 'Good', 3: 'Unhealthy'}
