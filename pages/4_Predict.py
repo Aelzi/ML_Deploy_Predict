@@ -6,8 +6,8 @@ import joblib
 
 
 df=pd.read_csv("polusi_udara_jogja2020.csv")
+st.dataframe(df, use_container_width=True)
 
-print(df.head())
 
 # print("BERHASIL")
 
