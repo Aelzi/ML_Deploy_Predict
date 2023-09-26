@@ -68,8 +68,8 @@ param_grid = {
 search = GridSearchCV(pipe, param_grid, cv=5)
 search.fit(X, y)
 
-search.best_score_
-search.best_params_
+# search.best_score_
+# search.best_params_
 
 # import numpy as np
 # from imblearn.under_sampling import RandomUnderSampler
