@@ -1,56 +1,59 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-import time
-
+import streamlit as st
+import pandas as pd
+import pickle
 import numpy as np
 
-import streamlit as st
-from streamlit.hello.utils import show_code
+# Load the trained model and user input data
+pipe = pickle.load(open('model.pkl', 'rb'))
+df = pickle.load(open('data.pkl', 'rb'))
 
+st.write("""
+# Udara Jogja Prediction App
 
-def plotting_demo():
-    progress_bar = st.sidebar.progress(0)
-    status_text = st.sidebar.empty()
-    last_rows = np.random.randn(1, 1)
-    chart = st.line_chart(last_rows)
+This app predicts the **Udara Jogja** type!
+""")
 
-    for i in range(1, 101):
-        new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-        status_text.text("%i%% Complete" % i)
-        chart.add_rows(new_rows)
-        progress_bar.progress(i)
-        last_rows = new_rows
-        time.sleep(0.05)
+st.sidebar.header('User Input Parameters')
 
-    progress_bar.empty()
+# User input features
+def user_input_features():
+    ozone = st.sidebar.slider('Ozone (O3)', 0, 81, 50)
+    carbon_monoksida = st.sidebar.slider('Carbon Monoksida (CO)', 0, 164, 50)
+    sulfur_dioksida = st.sidebar.slider('Sulfur Dioksida (SO2)', 0, 6, 3)
+    particulate_matter = st.sidebar.slider('Particulate Matter 10 (PM10)', 3, 60, 40)
+    data = {'O3': ozone,
+            'CO': carbon_monoksida,
+            'SO2': sulfur_dioksida,
+            'PM10': particulate_matter}
+    features = pd.DataFrame(data, index=[0])
+    return features
 
-    # Streamlit widgets automatically run the script from top to bottom. Since
-    # this button is not connected to any other logic, it just causes a plain
-    # rerun.
-    st.button("Re-run")
+# Function to make predictions
+def predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matter):
+    # Create a DataFrame with the user input
+    user_input = pd.DataFrame({'O3': [ozone],
+                            'CO': [carbon_monoksida],
+                            'SO2': [sulfur_dioksida],
+                            'PM10': [particulate_matter]})
 
+    # Use the loaded model to make predictions
+    prediction = pipe.predict(user_input)
 
-st.set_page_config(page_title="Plotting Demo", page_icon="📈")
-st.markdown("# Plotting Demo")
-st.sidebar.header("Plotting Demo")
-st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
-)
+    # Map the prediction to the corresponding category
+    category_mapping = {1: 'Moderate', 2: 'Good', 3: 'Unhealthy'}
+    category = category_mapping.get(prediction[0], 'Unknown')
 
-plotting_demo()
+    return category
 
-show_code(plotting_demo)
+# Get user input
+Input = user_input_features()
+ozone = Input['O3'].values[0]
+carbon_monoksida = Input['CO'].values[0]
+sulfur_dioksida = Input['SO2'].values[0]
+particulate_matter = Input['PM10'].values[0]
+
+# Predict the category
+category = predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matter)
+
+# Display the predicted category
+st.write(f"Prediction: {category} Air Quality")
