@@ -4,6 +4,13 @@ import pickle
 import numpy as np
 import joblib
 
+
+df=pd.read_csv("polusi_udara_jogja2020.csv")
+
+
+
+
+
 # Load the trained model and user input data
 pipe = joblib.load(open('../model.pkl', 'rb'))
 df = joblib.load(open('../data.pkl', 'rb'))
