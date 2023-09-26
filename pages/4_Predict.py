@@ -2,10 +2,11 @@ import streamlit as st
 import pandas as pd
 import pickle
 import numpy as np
+import joblib
 
 # Load the trained model and user input data
-pipe = pickle.load(open('model.pkl', 'rb'))
-df = pickle.load(open('data.pkl', 'rb'))
+pipe = joblib.load(open('../model.pkl', 'rb'))
+df = joblib.load(open('../data.pkl', 'rb'))
 
 st.write("""
 # Udara Jogja Prediction App
