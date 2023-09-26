@@ -3,3 +3,9 @@ numpy
 pandas
 pydeck
 streamlit
+scikit-learn
+xgboost
+pickleshare
+matplotlib
+seaborn
+missingno
