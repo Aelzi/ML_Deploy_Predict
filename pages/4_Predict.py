@@ -12,7 +12,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.datasets import make_classification
-from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 
@@ -39,7 +39,7 @@ processed_data = processed_data.replace({"Category": label_map})
 processed_data = processed_data.drop(columns=["Max","NO2","Critical Component"])
 
 
-st.dataframe(df, use_container_width=True)
+
 
 X = processed_data[["O3", "CO", "SO2", "PM10"]]
 y = processed_data["Category"]
@@ -100,9 +100,23 @@ y_test_gr = XGBC.predict(X_test)
 
 train_acg = accuracy_score(y_res, y_train_gr)
 test_acg = accuracy_score(y_test, y_test_gr)
-
+print("Accuracy Gradient Boosting Classifier")
 print(f'train_accuracy: {train_acg}')
 print(f"accuracy: {test_acg}")
+
+clf = RandomForestClassifier()
+RFC = Pipeline ([
+    ('Model', clf)
+])
+RFC.fit(X_res, y_res)
+y_train_rf = RFC.predict(X_res)
+y_test_rf = RFC.predict(X_test)
+
+train_acrf = accuracy_score(y_res, y_train_rf)
+test_acrf = accuracy_score(y_test, y_test_rf)
+print("Accuracy Random Forest Classifier")
+print(f'train_accuracy: {train_acrf}')
+print(f"accuracy: {test_acrf}")
 
 
 
@@ -117,13 +131,14 @@ print(f"accuracy: {test_acg}")
 # # processed_data.to_csv('data.csv', index=False)
 
 
-st.write("""
-# Udara Jogja Prediction App
 
-This app predicts the **Udara Jogja** type!
+st.write("""
+# Ayo prediksi kualitas udara di tempat kamu!
+
+Aplikasi menggunakan machine learning bla.. bla.. bla.. **Udara Jogja** type!
 """)
 
-st.sidebar.header('User Input Parameters')
+st.sidebar.header('Parameter Input:')
 
 # User input features
 def user_input_features():
@@ -138,6 +153,9 @@ def user_input_features():
     features = pd.DataFrame(data, index=[0])
     return features
 
+
+
+
 # Function to make predictions
 def predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matter):
     # Create a DataFrame with the user input
@@ -147,32 +165,43 @@ def predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matte
                             'PM10': [particulate_matter]})
 
     # Use the loaded model to make predictions
-    prediction = XGBC.predict(user_input)
+    prediction = RFC.predict(user_input)
 
     # Map the prediction to the corresponding category
-    category_mapping = {1: 'Sedang', 2: 'Sangat Baik', 3: 'Tidak Sehat'}
+    category_mapping = {1: 'baik', 2: 'sangat Baik', 3: 'tidak sehat'}
     category = category_mapping.get(prediction[0], 'Unknown')
 
     return category
 
 # Get user input
 Input = user_input_features()
+st.subheader('Parameter Input: ')
+st.write(Input)
 ozone = Input['O3'].values[0]
 carbon_monoksida = Input['CO'].values[0]
 sulfur_dioksida = Input['SO2'].values[0]
 particulate_matter = Input['PM10'].values[0]
 
 # Predict the category
-category = predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matter)
+category = predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matter)\
+# st.write(f"Prediction: {category} Air Quality")
+
+st.subheader('Probabilitas Prediksi:')
+prediction_proba=clf.predict_proba(Input)
+st.write(prediction_proba)
 
 # Display the predicted category
-st.write(f"Prediksi: Kualiatas udara {category} ")
 
-
-if category == 'Sedang':
-    st.write(""" #Kualitas udara sedang """)
+st.write('''## Hasil prediksi: ''')
+if category == 'baik':
+    st.markdown(''' # Kualitas udara :blue[baik]''')
+    st.markdown('''Diharapkan menggunakan masker ketika keluar rumah''')
     
-elif category== 'Sangat Baik':
-    st.write(""" #Kualitas udara sangat baik """)
+elif category== 'sangat Baik':
+    st.markdown(" # Kualitas udara :green[sangat baik]\n ")
+    st.markdown('''Ayo keluar rumah dan beraktivitas di luar ruangan''')
+    st.markdown('&mdash;\:tulip::cherry_blossom::rose::hibiscus::sunflower::blossom:')
 else:
-    st.write(""" #Kualitas udara tidak sehat """)
+    st.markdown(""" # Kualitas udara :red[tidak sehat]\n""")
+    st.markdown('''Diharapkan menggunakan masker ketika keluar rumah dan menghindari aktivitas di luar ruangan''')
+    st.markdown('&mdash;\:mask:')
