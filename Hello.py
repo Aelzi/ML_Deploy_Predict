@@ -14,6 +14,7 @@
 
 import streamlit as st
 from streamlit.logger import get_logger
+from streamlit_extras.switch_page_button import switch_page
 
 LOGGER = get_logger(__name__)
 
@@ -24,27 +25,45 @@ def run():
         page_icon="👋",
     )
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("# Selamat Datang di Big Data Streamlit App! 👋")
 
     st.sidebar.success("Select a demo above.")
 
     st.markdown(
         """
-        Haloooo gaisss Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
+        Streamlit adalah sebuah framework open-source yang digunakan untuk membangun aplikasi web
+        interaktif dengan framework Python.
+        
+        Aplikasi ini adalah Tugas Besar dari Rekruitas MBC Laboratory 2023 divisi Big Data.
+        Semoga Aplikasi ini dapat membantu dan bermanfaat bagi kalian semua! 😎🙌
+        
+                
+        ### Apa itu tujuan dari aplikasi ini?
+        - Sebagai tugas besar dari Rekruitasi MBC Laboratory Big Data
+        - Mengaplikasikan Machine Learning
         - Ask a question in our [community
           forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
+          
+        ### Apa manfaat penggunaan aplikasi ini?
+        - Dapat memprediksi kualitas udara
+        - 
           Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
+        - Explore a [New York City rideshare dataset]()
+        
+        ### Google Colab
+        [![AirQualityML.ipynb](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1izcv1jkd0rEb4OBFnGXy2JX17dcvSdB6?usp=sharing)
+        
+        ### Source Dataset
+        Kaggle: [Air Quality in Yogyakarta, Indonesia (2020)](https://github.com/streamlit/demo-uber-nyc-pickups)
+        
+        ### Source Code
+        [GitHub](https://github.com/Aelzi/tubesbd)
     """
     )
+    
+    want_to_contribute = st.button("Coba Predict!")
+    if want_to_contribute:
+      switch_page("Predict")
 
 
 if __name__ == "__main__":
