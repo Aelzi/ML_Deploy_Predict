@@ -10,4 +10,4 @@ pickleshare
 matplotlib
 seaborn
 missingno
-imblearn
+entrypoints
