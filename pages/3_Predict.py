@@ -1,21 +1,11 @@
 import streamlit as st
 import pandas as pd
-import pickle
 import numpy as np
-import joblib
 import sklearn
-from sklearn.preprocessing import LabelEncoder, OrdinalEncoder, PolynomialFeatures, StandardScaler
-from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
-from sklearn.tree import DecisionTreeClassifier, plot_tree
-from sklearn.linear_model import LogisticRegressionCV,LogisticRegression
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import LabelEncoder, PolynomialFeatures
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.linear_model import LogisticRegression
 from imblearn.under_sampling import RandomUnderSampler
-from sklearn.datasets import make_classification
-from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
-from sklearn.metrics import accuracy_score
-from streamlit_extras.let_it_rain import rain
-from streamlit_extras.colored_header import colored_header
 
 judul = st.write(" # Prediksi Kualitas Udara")
 
@@ -53,19 +43,19 @@ poly_feats["Category"] = y
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-pipe = Pipeline(steps=[
-    ('scaler', StandardScaler()),
-#     ('preprocessor', PolynomialFeatures(degree=2)),
-    ('estimator', DecisionTreeClassifier())
-])
+# pipe = Pipeline(steps=[
+#     ('scaler', StandardScaler()),
+# #     ('preprocessor', PolynomialFeatures(degree=2)),
+#     ('estimator', DecisionTreeClassifier())
+# ])
 
-param_grid = {
-    "estimator__criterion": ["gini", "entropy", "log_loss"],
-    "estimator__splitter": ["best", "random"],
-    "estimator__max_depth": [None, 4, 5],
-}
-search = GridSearchCV(pipe, param_grid, cv=5)
-search.fit(X, y)
+# param_grid = {
+#     "estimator__criterion": ["gini", "entropy", "log_loss"],
+#     "estimator__splitter": ["best", "random"],
+#     "estimator__max_depth": [None, 4, 5],
+# }
+# search = GridSearchCV(pipe, param_grid, cv=5)
+# search.fit(X, y)
 
 # search.best_score_
 # search.best_params_
