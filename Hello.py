@@ -27,8 +27,6 @@ def run():
 
     st.write("# Selamat Datang di Big Data Streamlit App! 👋")
 
-    st.sidebar.success("Select a demo above.")
-
     st.markdown(
         """
         Streamlit adalah sebuah framework open-source yang digunakan untuk membangun aplikasi web
