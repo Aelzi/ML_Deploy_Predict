@@ -5,9 +5,9 @@ import numpy as np
 import joblib
 import sklearn
 from sklearn.preprocessing import LabelEncoder, OrdinalEncoder, PolynomialFeatures, StandardScaler
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
 from sklearn.tree import DecisionTreeClassifier, plot_tree
-from sklearn.linear_model import LogisticRegressionCV
+from sklearn.linear_model import LogisticRegressionCV,LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from imblearn.under_sampling import RandomUnderSampler
@@ -76,48 +76,63 @@ search.fit(X, y)
 # from sklearn.datasets import make_classification
 
 # Inisialisasi Random Under-sampler
-rus = RandomUnderSampler(sampling_strategy='auto', random_state=42)
+# rus = RandomUnderSampler(sampling_strategy='auto', random_state=42)
 
 # Melakukan undersampling
-X_res, y_res = rus.fit_resample(X, y)
+# X_res, y_res = rus.fit_resample(X, y)
 
 # Menampilkan jumlah sampel setelah undersampling
-print("Jumlah sampel setelah undersampling:")
-print(np.bincount(y_res))
+# print("Jumlah sampel setelah undersampling:")
+# print(np.bincount(y_res))
 
 # from sklearn.ensemble import GradientBoostingClassifier
 # from sklearn.metrics import accuracy_score
 
-gradient = GradientBoostingClassifier()
+# gradient = GradientBoostingClassifier()
 
-XGBC = Pipeline ([
-    ('Model', gradient)
-])
+# XGBC = Pipeline ([
+#     ('Model', gradient)
+# ])
 
-XGBC.fit(X_res, y_res)
-y_train_gr = XGBC.predict(X_res)
-y_test_gr = XGBC.predict(X_test)
+# XGBC.fit(X_res, y_res)
+# y_train_gr = XGBC.predict(X_res)
+# y_test_gr = XGBC.predict(X_test)
 
-train_acg = accuracy_score(y_res, y_train_gr)
-test_acg = accuracy_score(y_test, y_test_gr)
-print("Accuracy Gradient Boosting Classifier")
-print(f'train_accuracy: {train_acg}')
-print(f"accuracy: {test_acg}")
+# train_acg = accuracy_score(y_res, y_train_gr)
+# test_acg = accuracy_score(y_test, y_test_gr)
+# print("Accuracy Gradient Boosting Classifier")
+# print(f'train_accuracy: {train_acg}')
+# print(f"accuracy: {test_acg}")
 
-clf = RandomForestClassifier()
-RFC = Pipeline ([
-    ('Model', clf)
-])
-RFC.fit(X_res, y_res)
-y_train_rf = RFC.predict(X_res)
-y_test_rf = RFC.predict(X_test)
+# clf = RandomForestClassifier()
+# RFC = Pipeline ([
+#     ('Model', clf)
+# ])
+# RFC.fit(X_res, y_res)
+# y_train_rf = RFC.predict(X_res)
+# y_test_rf = RFC.predict(X_test)
 
-train_acrf = accuracy_score(y_res, y_train_rf)
-test_acrf = accuracy_score(y_test, y_test_rf)
-print("Accuracy Random Forest Classifier")
-print(f'train_accuracy: {train_acrf}')
-print(f"accuracy: {test_acrf}")
+# train_acrf = accuracy_score(y_res, y_train_rf)
+# test_acrf = accuracy_score(y_test, y_test_rf)
+# print("Accuracy Random Forest Classifier")
+# print(f'train_accuracy: {train_acrf}')
+# print(f"accuracy: {test_acrf}")
 
+# from sklearn.model_selection import cross_val_score
+# from sklearn.linear_model import LogisticRegression
+# from imblearn.under_sampling import RandomUnderSampler
+
+# Melakukan undersampling pada data pelatihan
+undersampler = RandomUnderSampler(sampling_strategy='majority', random_state=42)
+X_train_resampledww, y_train_resampledww = undersampler.fit_resample(X_train, y_train)
+logistic_regression = LogisticRegression(max_iter=1000, random_state=42)
+cv_scores = cross_val_score(logistic_regression, X_train_resampledww, y_train_resampledww, cv=5)
+train_accuracy = cv_scores.mean()
+logistic_regression.fit(X_train_resampledww, y_train_resampledww)
+test_accuracy = logistic_regression.score(X_test, y_test)
+print("Accuracy Logistic Regression")
+print("Train Accuracy:", train_accuracy)
+print("Test Accuracy:", test_accuracy)
 
 
 # pipe =pickle.dump(XGBC, open('model.pkl', 'wb'))
@@ -165,7 +180,7 @@ def predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matte
                             'PM10': [particulate_matter]})
 
     # Use the loaded model to make predictions
-    prediction = RFC.predict(user_input)
+    prediction = logistic_regression.predict(user_input)
 
     # Map the prediction to the corresponding category
     category_mapping = {1: 'baik', 2: 'sangat Baik', 3: 'tidak sehat'}
@@ -187,8 +202,9 @@ category = predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulat
 # st.write(f"Prediction: {category} Air Quality")
 
 st.subheader('Probabilitas Prediksi:')
-prediction_proba=clf.predict_proba(Input)
+prediction_proba=logistic_regression.predict_proba(Input)
 st.write(prediction_proba)
+
 
 # Display the predicted category
 
