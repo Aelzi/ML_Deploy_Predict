@@ -10,7 +10,20 @@ from streamlit_extras.altex import bar_chart
 
 st.set_page_config(page_title="Tentang Data Frame", page_icon="📊")
 
+st.markdown("# Tentang Dataset")
+st.markdown("""Dataset ini berisi pengukuran polusi udara, seperti Particulate Matter (PM10), Sulfur Dioxide (SO2), Carbon Monoxide (CO), Ozone (O3), dan Natrium Dioxide (NO2). Pengukuran tersebut telah dikonversi ke Indeks Standar Pencemaran Udara (ISPU) atau Pollutant Standards Index (PSI).
 
+        Informasi Tabel:
+        
+    - Tanggal (Date): Tanggal pengukuran.
+    - PM10: Pengukuran Particulate Matter (PM10).
+    - SO2: Pengukuran Sulfur Dioxide (SO2).
+    - CO: Pengukuran Carbon Monoxide (CO).
+    - O3: Pengukuran Ozone (O3).
+    - NO2: Pengukuran Natrium Dioxide (NO2).
+    - Max: Nilai pengukuran tertinggi.
+    - Critical Component: Komponen atau komponen yang memiliki nilai pengukuran tertinggi.
+    - Category: Kategori polusi udara, baik atau tidak baik """)
 dataframe = pd.read_csv("polusi_udara_jogja2020.csv")
 def data_frame_kotor():
     
