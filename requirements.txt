@@ -3,6 +3,7 @@ numpy
 pandas
 pydeck
 streamlit
+streamlit-extras
 scikit-learn
 xgboost
 pickleshare
