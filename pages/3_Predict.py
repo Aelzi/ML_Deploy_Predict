@@ -148,13 +148,20 @@ print("Test Accuracy:", test_accuracy)
 
 st.write("""
 
-## Prediksi ini menggunakan metode :blue[**Logistic Regression**]
+## Prediksi ini menggunakan metode:
+# :blue[**Logistic Regression**] + :green[**Cross Validation**] + :red[**Oversampling**]
 
-**Logistik Regresi** adalah metode statistik yang membantu dalam mengklasifikasikan kualitas udara 
+:blue[**Logistik Regresi**] adalah metode statistik yang membantu dalam mengklasifikasikan kualitas udara 
 berdasarkan parameter-parameter seperti **ozon**, **karbon monoksida**, **sulfur dioksida**, dan **partikulat 
 matter 10**. Ini membantu mengidentifikasi apakah udara tersebut baik atau buruk untuk kesehatan 
 berdasarkan data parameter-parameter tersebut, memungkinkan pengambilan tindakan yang sesuai untuk 
 menjaga kualitas udara yang lebih baik.
+
+:green[**Cross Validation**] adalah teknik yang digunakan untuk mengukur seberapa baik model kita dalam memprediksi 
+data yang belum pernah dilihat sebelumnya. Dalam konteks polusi udara, kita akan membagi data kita menjadi beberapa subset.
+
+:red[**Oversampling**] adalah teknik yang digunakan untuk mengatasi ketidakseimbangan dalam dataset. Dalam konteks polusi udara, kita mungkin memiliki lebih banyak data pada 
+tingkat polusi yang rendah daripada yang tinggi. Dengan oversampling, kita membuat salinan tambahan dari data yang tingkat polusinya tinggi sehingga dataset kita menjadi lebih seimbang.
 """)
 
 st.sidebar.header('Parameter Input:')
@@ -209,9 +216,9 @@ else:
 category = predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matter)\
 # st.write(f"Prediction: {category} Air Quality")
 
-st.subheader('Probabilitas Prediksi:')
-prediction_proba=logistic_regression.predict_proba(Input)
-st.write(prediction_proba)
+# st.subheader('Probabilitas Prediksi:')
+# prediction_proba=logistic_regression.predict_proba(Input)
+# st.write(prediction_proba)
 
 
 # Display the predicted category
