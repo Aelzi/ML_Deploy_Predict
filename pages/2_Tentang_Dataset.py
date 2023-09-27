@@ -2,7 +2,6 @@ import altair as alt
 import pandas as pd
 
 import streamlit as st
-from streamlit.hello.utils import show_code
 from streamlit_extras.dataframe_explorer import dataframe_explorer
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.altex import bar_chart
