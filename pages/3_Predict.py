@@ -14,12 +14,10 @@ from imblearn.under_sampling import RandomUnderSampler
 from sklearn.datasets import make_classification
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.metrics import accuracy_score
-
-
-
 from streamlit_extras.let_it_rain import rain
+from streamlit_extras.colored_header import colored_header
 
-
+judul = st.write(" # Prediksi Kualitas Udara")
 
 df=pd.read_csv("polusi_udara_jogja2020.csv")
 
@@ -149,7 +147,6 @@ print("Test Accuracy:", test_accuracy)
 
 
 st.write("""
-# Prediksi kualitas udara
 
 ## Prediksi ini menggunakan metode :blue[**Logistic Regression**]
 
@@ -219,7 +216,7 @@ st.write(prediction_proba)
 
 # Display the predicted category
 
-st.write('''## Hasil prediksi: ''')
+st.write('''### Hasil prediksi: ''')
 if category == 'baik':
     st.markdown(''' # Kualitas udara :blue[baik]''')
     st.markdown(''' 
@@ -229,14 +226,15 @@ if category == 'baik':
     
 elif category== 'sangat Baik':
     st.markdown(" # Kualitas udara :green[sangat baik]\n ")
-    st.markdown(''' - Aman untuk beraktivitas di luar ruangan. Cobalah untuk menikmati udara segar dan berolahraga di luar.
-                    - Anda dapat menggunakan kendaraan bermotor seperti biasa.
-                    - Tetap menjaga kebersihan dan lingkungan agar tetap bersih.''')
+    st.markdown(''' 
+                - Aman untuk beraktivitas di luar ruangan. Cobalah untuk menikmati udara segar dan berolahraga di luar.
+                - Anda dapat menggunakan kendaraan bermotor seperti biasa.
+                - Tetap menjaga kebersihan dan lingkungan agar tetap bersih.''')
     st.markdown('&mdash;\:tulip::cherry_blossom::rose::hibiscus::sunflower::blossom:')
 else:
     st.markdown(""" # Kualitas udara :red[tidak sehat]\n""")
     st.markdown('''
-                    - Hindari aktivitas di luar ruangan, terutama berolahraga. Coba untuk tetap berada di dalam ruangan.
-                    - Jika Anda harus keluar, gunakan masker penutup wajah yang sesuai untuk melindungi diri Anda.
-                    - Pastikan ventilasi dalam ruangan baik dan hindari merokok atau menggunakan alat bakar dalam ruangan.''')
+                - Hindari aktivitas di luar ruangan, terutama berolahraga. Coba untuk tetap berada di dalam ruangan.
+                - Jika Anda harus keluar, gunakan masker penutup wajah yang sesuai untuk melindungi diri Anda.
+                - Pastikan ventilasi dalam ruangan baik dan hindari merokok atau menggunakan alat bakar dalam ruangan.''')
 

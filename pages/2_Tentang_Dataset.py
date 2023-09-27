@@ -5,12 +5,15 @@ import streamlit as st
 from streamlit.hello.utils import show_code
 from streamlit_extras.dataframe_explorer import dataframe_explorer
 from streamlit_extras.switch_page_button import switch_page
+from streamlit_extras.altex import bar_chart
+
 
 st.set_page_config(page_title="Tentang Data Frame", page_icon="📊")
 
-dataframe = pd.read_csv("polusi_udara_jogja2020.csv")
 
+dataframe = pd.read_csv("polusi_udara_jogja2020.csv")
 def data_frame_kotor():
+    
     filtered_df = dataframe_explorer(dataframe, case=False)
     st.dataframe(filtered_df, use_container_width=True)
 
@@ -23,13 +26,31 @@ st.write(
 
 data_frame_kotor()
 
+# category_counts = dataframe['Category'].value_counts().reset_index()
+# category_counts.columns = ['Category', 'Count']
+
+# st.write("Total Kategori:")
+# st.write(category_counts)
+
+# chart = alt.Chart(category_counts).mark_bar().encode(
+#     x=alt.X('Category', axis=alt.Axis(labelAngle=0)),
+#     y='Count',
+#     color='Category'
+# ).properties(
+#     title="Grafik Total Kategori"
+# )
+
+# st.altair_chart(chart, use_container_width=True)
+
+
+
 
 dataframe = pd.read_csv("data.csv")
 
-def data_frame_bersih():
+def data_frame_bersih():  
     filtered_df = dataframe_explorer(dataframe, case=False)
     st.dataframe(filtered_df, use_container_width=True)
-
+    
 
 
 st.markdown("# Data Frame Bersih")
@@ -42,6 +63,23 @@ st.write(
 )
 
 data_frame_bersih()
+
+
+# category_counts = dataframe['Category'].value_counts().reset_index()
+# category_counts.columns = ['Category', 'Count']
+
+# st.write("Total Kategori:")
+# st.write(category_counts)
+
+# chart = alt.Chart(category_counts).mark_bar().encode(
+#     x=alt.X('Category', axis=alt.Axis(labelAngle=0)),
+#     y='Count',
+#     color='Category'
+# ).properties(
+#     title="Grafik Total Kategori"
+# )
+
+# st.altair_chart(chart, use_container_width=True)
 
 
 want_to_contribute = st.button("Coba Predict!")
