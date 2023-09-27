@@ -21,7 +21,7 @@ LOGGER = get_logger(__name__)
 
 def run():
     st.set_page_config(
-        page_title="Hello",
+        page_title="About Streamlit",
         page_icon="👋",
     )
 
@@ -35,31 +35,32 @@ def run():
         interaktif dengan framework Python.
         
         Aplikasi ini adalah Tugas Besar dari Rekruitas MBC Laboratory 2023 divisi Big Data.
-        Semoga Aplikasi ini dapat membantu dan bermanfaat bagi kalian semua! 😎🙌
+        Semoga Aplikasi ini dapat membantu dan bermanfaat bagi teman-teman semua! 😎🙌
         
                 
-        ### Apa itu tujuan dari aplikasi ini?
-        - Sebagai tugas besar dari Rekruitasi MBC Laboratory Big Data
-        - Mengaplikasikan Machine Learning
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
+        ### Apa tujuan aplikasi ini?
+        - Sebagai tugas besar dari Rekruitasi MBC Laboratory Big Data.
+        - Mengaplikasikan Machine Learning untuk memprediksi kualitas udara berdasarkan parameter yang disesuaikan.
+        - Memberikan informasi yang berguna tentang kualitas udara.
           
         ### Apa manfaat penggunaan aplikasi ini?
-        - Dapat memprediksi kualitas udara
-        - 
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset]()
+        - Dapat memprediksi kualitas udara berdasarkan parameter yang disesuaikan.
+        - Memungkinkan pengguna untuk menjelajahi data dan informasi seputar kualitas udara.
         
-        ### Google Colab
+        ## Source Link:
+        
+        **Google Colab**
         [![AirQualityML.ipynb](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1izcv1jkd0rEb4OBFnGXy2JX17dcvSdB6?usp=sharing)
         
-        ### Source Dataset
+        **Dataset**
         Kaggle: [Air Quality in Yogyakarta, Indonesia (2020)](https://github.com/streamlit/demo-uber-nyc-pickups)
         
-        ### Source Code
-        [GitHub](https://github.com/Aelzi/tubesbd)
-    """
-    )
+        **Link**
+        GitHub: [github.com/Aelzi/tubesbd](https://github.com/Aelzi/tubesbd)
+      """
+      )
+    
+    
     
     want_to_contribute = st.button("Coba Predict!")
     if want_to_contribute:

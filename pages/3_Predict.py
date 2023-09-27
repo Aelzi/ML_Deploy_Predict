@@ -17,6 +17,7 @@ from sklearn.metrics import accuracy_score
 
 
 
+from streamlit_extras.let_it_rain import rain
 
 
 
@@ -148,9 +149,15 @@ print("Test Accuracy:", test_accuracy)
 
 
 st.write("""
-# Ayo prediksi kualitas udara di tempat kamu!
+# Prediksi kualitas udara
 
-Aplikasi menggunakan machine learning bla.. bla.. bla.. **Udara Jogja** type!
+## Prediksi ini menggunakan metode :blue[**Logistic Regression**]
+
+**Logistik Regresi** adalah metode statistik yang membantu dalam mengklasifikasikan kualitas udara 
+berdasarkan parameter-parameter seperti **ozon**, **karbon monoksida**, **sulfur dioksida**, dan **partikulat 
+matter 10**. Ini membantu mengidentifikasi apakah udara tersebut baik atau buruk untuk kesehatan 
+berdasarkan data parameter-parameter tersebut, memungkinkan pengambilan tindakan yang sesuai untuk 
+menjaga kualitas udara yang lebih baik.
 """)
 
 st.sidebar.header('Parameter Input:')
@@ -167,8 +174,6 @@ def user_input_features():
             'PM10': particulate_matter}
     features = pd.DataFrame(data, index=[0])
     return features
-
-
 
 
 # Function to make predictions
@@ -191,11 +196,17 @@ def predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matte
 # Get user input
 Input = user_input_features()
 st.subheader('Parameter Input: ')
-st.write(Input)
-ozone = Input['O3'].values[0]
-carbon_monoksida = Input['CO'].values[0]
-sulfur_dioksida = Input['SO2'].values[0]
-particulate_matter = Input['PM10'].values[0]
+if Input['O3'].values[0] == 0 and Input['CO'].values[0] == 0 and Input['SO2'].values[0] == 0 and Input['PM10'].values[0] == 3:
+    st.write('''Inputan tidak valid ❌
+                
+                Mohon masukkan data yang tepat!''')
+else:
+    st.write(Input)
+    ozone = Input['O3'].values[0]
+    carbon_monoksida = Input['CO'].values[0]
+    sulfur_dioksida = Input['SO2'].values[0]
+    particulate_matter = Input['PM10'].values[0]
+    
 
 # Predict the category
 category = predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matter)\
@@ -211,13 +222,21 @@ st.write(prediction_proba)
 st.write('''## Hasil prediksi: ''')
 if category == 'baik':
     st.markdown(''' # Kualitas udara :blue[baik]''')
-    st.markdown('''Diharapkan menggunakan masker ketika keluar rumah''')
+    st.markdown(''' 
+                - Orang-orang dengan sensitivitas tinggi mungkin perlu mengurangi waktu di luar ruangan atau berolahraga intensif.
+                - Pastikan ventilasi dalam ruangan baik untuk mengurangi paparan polusi udara dalam ruangan.
+                - Pantau pemberitahuan dan peringatan kualitas udara setempat untuk informasi terkini.''')
     
 elif category== 'sangat Baik':
     st.markdown(" # Kualitas udara :green[sangat baik]\n ")
-    st.markdown('''Ayo keluar rumah dan beraktivitas di luar ruangan''')
+    st.markdown(''' - Aman untuk beraktivitas di luar ruangan. Cobalah untuk menikmati udara segar dan berolahraga di luar.
+                    - Anda dapat menggunakan kendaraan bermotor seperti biasa.
+                    - Tetap menjaga kebersihan dan lingkungan agar tetap bersih.''')
     st.markdown('&mdash;\:tulip::cherry_blossom::rose::hibiscus::sunflower::blossom:')
 else:
     st.markdown(""" # Kualitas udara :red[tidak sehat]\n""")
-    st.markdown('''Diharapkan menggunakan masker ketika keluar rumah dan menghindari aktivitas di luar ruangan''')
-    st.markdown('&mdash;\:mask:')
+    st.markdown('''
+                    - Hindari aktivitas di luar ruangan, terutama berolahraga. Coba untuk tetap berada di dalam ruangan.
+                    - Jika Anda harus keluar, gunakan masker penutup wajah yang sesuai untuk melindungi diri Anda.
+                    - Pastikan ventilasi dalam ruangan baik dan hindari merokok atau menggunakan alat bakar dalam ruangan.''')
+
