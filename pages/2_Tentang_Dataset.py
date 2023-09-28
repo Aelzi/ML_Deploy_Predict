@@ -38,21 +38,21 @@ st.write(
 
 data_frame_kotor()
 
-# category_counts = dataframe['Category'].value_counts().reset_index()
-# category_counts.columns = ['Category', 'Count']
+category_counts = dataframe['Category'].value_counts().reset_index()
+category_counts.columns = ['Category', 'Count']
 
-# st.write("Total Kategori:")
-# st.write(category_counts)
+st.write("Total Kategori:")
+st.write(category_counts)
 
-# chart = alt.Chart(category_counts).mark_bar().encode(
-#     x=alt.X('Category', axis=alt.Axis(labelAngle=0)),
-#     y='Count',
-#     color='Category'
-# ).properties(
-#     title="Grafik Total Kategori"
-# )
+chart = alt.Chart(category_counts).mark_bar().encode(
+    x=alt.X('Category', axis=alt.Axis(labelAngle=0)),
+    y='Count',
+    color='Category'
+)
 
-# st.altair_chart(chart, use_container_width=True)
+st.markdown("<h3 style='text-align: center;'>Grafik Total Kategori </h3>", unsafe_allow_html=True)
+
+st.altair_chart(chart, use_container_width=True)
 
 
 
