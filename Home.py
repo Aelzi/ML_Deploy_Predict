@@ -48,7 +48,7 @@ def run():
     
     want_to_contribute = st.button("Coba Prediksi!")
     if want_to_contribute:
-      switch_page("Predict")
+      switch_page("predict")
 
 
 if __name__ == "__main__":
