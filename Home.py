@@ -60,9 +60,9 @@ def run():
     
     
     
-    want_to_contribute = st.button("Coba Predict!")
+    want_to_contribute = st.button("Coba Prediksi!")
     if want_to_contribute:
-      switch_page("Predict")
+      switch_page("Prediksi")
 
 
 if __name__ == "__main__":
