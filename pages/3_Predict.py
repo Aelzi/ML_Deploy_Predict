@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import pickle
 from sklearn.preprocessing import LabelEncoder, PolynomialFeatures
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.linear_model import LogisticRegression
@@ -8,39 +9,39 @@ from imblearn.under_sampling import RandomUnderSampler
 
 judul = st.write(" # Prediksi Kualitas Udara")
 
-df=pd.read_csv("polusi_udara_jogja2020.csv")
+# df=pd.read_csv("polusi_udara_jogja2020.csv")
 
 
-processed_data = df.copy()
-processed_data["Critical Component"] = LabelEncoder().fit_transform(processed_data["Critical Component"])
+# processed_data = df.copy()
+# processed_data["Critical Component"] = LabelEncoder().fit_transform(processed_data["Critical Component"])
 
-# map Label to ordinal encoding
-label_map = {
-    "Moderate": 1,
-    "Good": 2,
-    "Unhealthy": 3,
-}
-processed_data = processed_data.replace({"Category": label_map})
+# # map Label to ordinal encoding
+# label_map = {
+#     "Moderate": 1,
+#     "Good": 2,
+#     "Unhealthy": 3,
+# }
+# processed_data = processed_data.replace({"Category": label_map})
 
-# processed_data.head()
+# # processed_data.head()
 
-processed_data = processed_data.drop(columns=["Max","NO2","Critical Component"])
-
-
+# processed_data = processed_data.drop(columns=["Max","NO2","Critical Component"])
 
 
-X = processed_data[["O3", "CO", "SO2", "PM10"]]
-y = processed_data["Category"]
 
-poly = PolynomialFeatures(2)
-poly.fit(X)
-poly_feats = pd.DataFrame(data=poly.transform(X), columns=poly.get_feature_names_out())
-poly_feats = poly_feats.iloc[:, 1:]
-print(poly_feats.shape)
 
-poly_feats["Category"] = y
+# X = processed_data[["O3", "CO", "SO2", "PM10"]]
+# y = processed_data["Category"]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+# poly = PolynomialFeatures(2)
+# poly.fit(X)
+# poly_feats = pd.DataFrame(data=poly.transform(X), columns=poly.get_feature_names_out())
+# poly_feats = poly_feats.iloc[:, 1:]
+# print(poly_feats.shape)
+
+# poly_feats["Category"] = y
+
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 # pipe = Pipeline(steps=[
 #     ('scaler', StandardScaler()),
@@ -111,16 +112,16 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 # from imblearn.under_sampling import RandomUnderSampler
 
 # Melakukan undersampling pada data pelatihan
-undersampler = RandomUnderSampler(sampling_strategy='majority', random_state=42)
-X_train_resampledww, y_train_resampledww = undersampler.fit_resample(X_train, y_train)
-logistic_regression = LogisticRegression(max_iter=1000, random_state=42)
-cv_scores = cross_val_score(logistic_regression, X_train_resampledww, y_train_resampledww, cv=5)
-train_accuracy = cv_scores.mean()
-logistic_regression.fit(X_train_resampledww, y_train_resampledww)
-test_accuracy = logistic_regression.score(X_test, y_test)
-print("Accuracy Logistic Regression")
-print("Train Accuracy:", train_accuracy)
-print("Test Accuracy:", test_accuracy)
+# undersampler = RandomUnderSampler(sampling_strategy='majority', random_state=42)
+# X_train_resampledww, y_train_resampledww = undersampler.fit_resample(X_train, y_train)
+# logistic_regression = LogisticRegression(max_iter=1000, random_state=42)
+# cv_scores = cross_val_score(logistic_regression, X_train_resampledww, y_train_resampledww, cv=5)
+# train_accuracy = cv_scores.mean()
+# logistic_regression.fit(X_train_resampledww, y_train_resampledww)
+# test_accuracy = logistic_regression.score(X_test, y_test)
+# print("Accuracy Logistic Regression")
+# print("Train Accuracy:", train_accuracy)
+# print("Test Accuracy:", test_accuracy)
 
 
 # pipe =pickle.dump(XGBC, open('model.pkl', 'wb'))
@@ -133,7 +134,11 @@ print("Test Accuracy:", test_accuracy)
 # df1 = joblib.load(open('../data.pkl', 'rb'))
 # # processed_data.to_csv('data.csv', index=False)
 
+from pathlib import Path
 
+pkl_path = Path(__file__).parents[1]/ 'model/model.pkl'
+with open(pkl_path, 'rb') as file:
+    model=pickle.load(file)
 
 st.write("""
 
@@ -178,7 +183,7 @@ def predict_category(ozone, carbon_monoksida, sulfur_dioksida, particulate_matte
                             'PM10': [particulate_matter]})
 
     # Use the loaded model to make predictions
-    prediction = logistic_regression.predict(user_input)
+    prediction = model.predict(user_input)
 
     # Map the prediction to the corresponding category
     category_mapping = {1: 'baik', 2: 'sangat Baik', 3: 'tidak sehat'}

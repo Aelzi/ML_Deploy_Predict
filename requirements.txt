@@ -5,8 +5,6 @@ pydeck
 streamlit
 streamlit-extras
 scikit-learn
-xgboost
-pickleshare
 matplotlib
 seaborn
 missingno
