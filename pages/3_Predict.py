@@ -12,24 +12,7 @@ judul = st.write(" # Prediksi Kualitas Udara")
 pkl_path = Path(__file__).parents[1]/ 'model/model.pkl'
 with open(pkl_path, 'rb') as file:
     model=pickle.load(file)
-
-st.write("""
-
-### Prediksi ini menggunakan metode:
-## :blue[**Logistic Regression**] + :green[**Cross Validation**] + :red[**Oversampling**]
-
-:blue[**Logistik Regresi**] adalah metode statistik yang membantu dalam mengklasifikasikan kualitas udara 
-berdasarkan parameter-parameter seperti **ozon**, **karbon monoksida**, **sulfur dioksida**, dan **partikulat 
-matter 10**. Ini membantu mengidentifikasi apakah udara tersebut baik atau buruk untuk kesehatan 
-berdasarkan data parameter-parameter tersebut, memungkinkan pengambilan tindakan yang sesuai untuk 
-menjaga kualitas udara yang lebih baik.
-
-:green[**Cross Validation**] adalah teknik yang digunakan untuk mengukur seberapa baik model kita dalam memprediksi 
-data yang belum pernah dilihat sebelumnya. Dalam konteks polusi udara, kita akan membagi data kita menjadi beberapa subset.
-
-:red[**Oversampling**] adalah teknik yang digunakan untuk mengatasi ketidakseimbangan dalam dataset. Dalam konteks polusi udara, kita mungkin memiliki lebih banyak data pada 
-tingkat polusi yang rendah daripada yang tinggi. Dengan oversampling, kita membuat salinan tambahan dari data yang tingkat polusinya tinggi sehingga dataset kita menjadi lebih seimbang.
-""")
+    
 
 st.sidebar.header('Parameter Input:')
 
@@ -112,3 +95,21 @@ else:
                 - Jika Anda harus keluar, gunakan masker penutup wajah yang sesuai untuk melindungi diri Anda.
                 - Pastikan ventilasi dalam ruangan baik dan hindari merokok atau menggunakan alat bakar dalam ruangan.''')
 
+
+st.write("""
+
+### Prediksi ini menggunakan metode:
+### :blue[**Logistic Regression**] + :green[**Cross Validation**] + :red[**Oversampling**]
+
+:blue[**Logistik Regresi**] adalah metode statistik yang membantu dalam mengklasifikasikan kualitas udara 
+berdasarkan parameter-parameter seperti **ozon**, **karbon monoksida**, **sulfur dioksida**, dan **partikulat 
+matter 10**. Ini membantu mengidentifikasi apakah udara tersebut baik atau buruk untuk kesehatan 
+berdasarkan data parameter-parameter tersebut, memungkinkan pengambilan tindakan yang sesuai untuk 
+menjaga kualitas udara yang lebih baik.
+
+:green[**Cross Validation**] adalah teknik yang digunakan untuk mengukur seberapa baik model kita dalam memprediksi 
+data yang belum pernah dilihat sebelumnya. Dalam konteks polusi udara, kita akan membagi data kita menjadi beberapa subset.
+
+:red[**Oversampling**] adalah teknik yang digunakan untuk mengatasi ketidakseimbangan dalam dataset. Dalam konteks polusi udara, kita mungkin memiliki lebih banyak data pada 
+tingkat polusi yang rendah daripada yang tinggi. Dengan oversampling, kita membuat salinan tambahan dari data yang tingkat polusinya tinggi sehingga dataset kita menjadi lebih seimbang.
+""")
