@@ -5,6 +5,7 @@ import streamlit as st
 from streamlit_extras.dataframe_explorer import dataframe_explorer
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.altex import bar_chart
+import matplotlib.pyplot as plt
 
 
 st.set_page_config(page_title="Tentang Data Frame", page_icon="📊")
@@ -76,7 +77,22 @@ st.write(
 
 data_frame_bersih()
 
+dataframe=pd.read_csv('y_train_resampled9.csv')
+category_counts = dataframe['Category'].value_counts().reset_index()
+category_counts.columns = ['Category', 'Count']
 
+st.write("Total Kategori:")
+st.write(category_counts)
+
+chart = alt.Chart(category_counts).mark_bar().encode(
+    x=alt.X('Category', axis=alt.Axis(labelAngle=0)),
+    y='Count',
+    color='Category'
+)
+
+st.markdown("<h3 style='text-align: center;'>Grafik Total Kategori </h3>", unsafe_allow_html=True)
+
+st.altair_chart(chart, use_container_width=True)
 # category_counts = dataframe['Category'].value_counts().reset_index()
 # category_counts.columns = ['Category', 'Count']
 
