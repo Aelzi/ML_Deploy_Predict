@@ -81,7 +81,7 @@ dataframe=pd.read_csv('y_train_resampled9.csv')
 category_counts = dataframe['Category'].value_counts().reset_index()
 category_counts.columns = ['Category', 'Count']
 
-st.write("Total Kategori:")
+st.write("Total Kategori (Oversampling):")
 st.write(category_counts)
 
 chart = alt.Chart(category_counts).mark_bar().encode(
@@ -90,7 +90,7 @@ chart = alt.Chart(category_counts).mark_bar().encode(
     color='Category'
 )
 
-st.markdown("<h3 style='text-align: center;'>Grafik Total Kategori </h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Grafik Total Kategori (Oversampling) </h3>", unsafe_allow_html=True)
 
 st.altair_chart(chart, use_container_width=True)
 # category_counts = dataframe['Category'].value_counts().reset_index()
