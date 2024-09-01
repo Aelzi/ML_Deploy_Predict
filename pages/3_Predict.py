@@ -100,4 +100,4 @@ st.write("""
  
 ### Prediksi ini menggunakan metode:
 ### :blue[**Logistic Regression**] + :green[**Cross Validation**] + :red[**Oversampling**]
-
+ 
