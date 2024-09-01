@@ -96,7 +96,7 @@ else:
                 - Pastikan ventilasi dalam ruangan baik dan hindari merokok atau menggunakan alat bakar dalam ruangan.''')
 
 
-st.info("""
+st.write("""
  
 ### Prediksi ini menggunakan metode:
 ### :blue[**Logistic Regression**] + :green[**Cross Validation**] + :red[**Oversampling**]
