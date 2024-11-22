@@ -3,4 +3,4 @@
 Streamlit adalah sebuah framework open-source yang digunakan untuk membangun aplikasi web interaktif dengan framework Python.
         
 ## Link Streamlit
-https://tubesbd.streamlit.app/
+https://airqualitypredictmbc.streamlit.app/
