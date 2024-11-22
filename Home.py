@@ -18,12 +18,11 @@ def run():
         Streamlit adalah sebuah framework open-source yang digunakan untuk membangun aplikasi web
         interaktif dengan framework Python.
         
-        Aplikasi ini adalah Tugas Besar dari Rekruitas MBC Laboratory 2023 divisi Big Data.
+        Aplikasi ini adalah Hands-ON Workshop MBC Laboratory 2024 divisi Big Data.
         Semoga Aplikasi ini dapat membantu dan bermanfaat bagi teman-teman semua! 😎🙌
         
                 
         ### Apa tujuan aplikasi ini?
-        - Sebagai tugas besar dari Rekruitasi MBC Laboratory Big Data.
         - Mengaplikasikan Machine Learning untuk memprediksi kualitas udara berdasarkan parameter yang disesuaikan.
         - Memberikan informasi yang berguna tentang kualitas udara.
           
@@ -40,7 +39,7 @@ def run():
         Kaggle: [Air Quality in Yogyakarta, Indonesia (2020)](https://github.com/streamlit/demo-uber-nyc-pickups)
         
         **Link**
-        GitHub: [github.com/Aelzi/tubesbd](https://github.com/Aelzi/tubesbd)
+        GitHub: [github.com/Aelzi/tubesbd](https://github.com/Aelzi)
       """
       )
     
